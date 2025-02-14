@@ -4,11 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirección de Prendas</title>
+    <title>Redirección</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XK4QFJ59L0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-XK4QFJ59L0');
+    </script>
+
     <script>
         async function redirigir() {
             const params = new URLSearchParams(window.location.search);
-            const prenda = params.get("prenda"); // Ahora buscamos "prenda" en la URL
+            const prenda = params.get("prenda");
 
             if (!prenda) {
                 document.body.innerHTML = "<h1>Error: No se encontró una prenda válida.</h1>";
@@ -16,11 +27,11 @@
             }
 
             try {
-                const response = await fetch("redirecciones.json");
+                const response = await fetch("redirecciones.json?t=" + new Date().getTime());
                 const urls = await response.json();
 
                 if (urls[prenda]) {
-                    window.location.href = urls[prenda]; // Redirige a la URL correspondiente
+                    window.location.href = urls[prenda];
                 } else {
                     document.body.innerHTML = "<h1>Error: Prenda no registrada.</h1>";
                 }
