@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirección</title>
+    <title>Redirección de Prendas</title>
     <script>
         async function redirigir() {
             const params = new URLSearchParams(window.location.search);
-            const id = params.get("id");
+            const prenda = params.get("prenda"); // Ahora buscamos "prenda" en la URL
 
-            if (!id) {
-                document.body.innerHTML = "<h1>Error: No se encontró un ID válido.</h1>";
+            if (!prenda) {
+                document.body.innerHTML = "<h1>Error: No se encontró una prenda válida.</h1>";
                 return;
             }
 
@@ -19,10 +19,10 @@
                 const response = await fetch("redirecciones.json");
                 const urls = await response.json();
 
-                if (urls[id]) {
-                    window.location.href = urls[id];
+                if (urls[prenda]) {
+                    window.location.href = urls[prenda]; // Redirige a la URL correspondiente
                 } else {
-                    document.body.innerHTML = "<h1>Error: ID no registrado.</h1>";
+                    document.body.innerHTML = "<h1>Error: Prenda no registrada.</h1>";
                 }
             } catch (error) {
                 document.body.innerHTML = "<h1>Error al cargar las redirecciones.</h1>";
